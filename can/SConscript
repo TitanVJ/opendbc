@@ -17,7 +17,7 @@ envDBC.Library('libdbc_static', src, LIBS=libs)
 # Build packer and parser
 lenv = envCython.Clone()
 if arch == "Darwin":
-  lenv["LINKFLAGS"] += [f"-Wl,-rpath,{libdbc[0].get_labspath()}"]
+  lenv["LINKFLAGS"] += ["-bundle", "-undefined", "dynamic_lookup", f"-Wl,-rpath,{libdbc[0].dir.get_labspath()}"]
 else:
   lenv["LINKFLAGS"] += [libdbc[0].get_labspath()]
 parser = lenv.Program('parser_pyx.so', 'parser_pyx.pyx')
